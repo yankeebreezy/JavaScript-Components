@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.12/angular.js"></script>
+<script src="inputfile.js"></script>
+</head>
+<body ng-controller="appctrl">
+<label>Input Type File :</label>
+<input type="file" id="img">
+<button ng-click="upload()">Upload</button>
+<br>
+<label>Custom File Directive :</label><input type="file" inputfile="uploadfile"/>
+</body>
+</html>
