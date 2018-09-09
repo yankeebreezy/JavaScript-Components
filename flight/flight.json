@@ -1,0 +1,4 @@
+[{"airline":"Boudha Airline","from":"Bharatpur (BHR)","to":"Kathmandu (KTM)","date":"19-01-2018","departure":"4:15 pm","arrival":"4:35 pm","duration":"0h 20m","price":3500},
+{"airline":"Boudha Airline","from":"Bharatpur (BHR)","to":"Pokhara (PKR)","date":"19-01-2018","departure":"2:40 pm","arrival":"2:55 pm","duration":"0h 25m","price":3200},
+{"airline":"Yeti Airline","from":"Kathmandu (KTM)","to":"Bharatpur (BHR)","date":"19-01-2018","departure":"7:15 am","arrival":"7:35 am","duration":"0h 20m","price":3500},
+{"airline":"Yeti Airline","from":"Pokhara (PKR)","to":"Kathmandu (KTM)","date":"19-01-2018","departure":"11:30 am","arrival":"11:55 am","duration":"0h 25m","price":3200}]

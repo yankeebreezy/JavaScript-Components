@@ -1,0 +1,15 @@
+<html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+    <script src="script.js"></script>
+  </head>
+
+  <body ng-app="numApp">
+    <div ng-controller="numberController">
+      <number-dir numbermodal="numberModal" inc="numberIncrement(1)" dec="numberDecrement(1)">    	
+      </number-dir>
+      <number-dir numbermodal="numberModal1" inc="numberIncrement(2)" dec="numberDecrement(2)"></number-dir>
+    </div>
+    
+</body>
+</html>

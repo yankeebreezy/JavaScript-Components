@@ -1,0 +1,40 @@
+group '1.0'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.3.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+bootJar {
+    baseName = 'gs-producing-web-service'
+    version = '0.1.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+dependencies {
+    compile ("org.springframework.boot:spring-boot-starter-web-services")
+    testCompile ("org.springframework.book:spring-boot-starter-test")
+    compile ("wsdl4j:wsdl4j:1.6.1")
+    compile ("javax.xml.bind:jaxb-api:2.2.12")
+    compile ("org.projectlombok:lombok:1.16.14")
+}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html ng-app="scrollApp">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Scroll</title>
+<style> 
+  ul {
+    list-style-type: none;
+  }
+  li {
+    height: 110px;
+  }
+  #scrollDiv {
+    height: 300px;
+    overflow-y: scroll;
+  }
+  #custom {
+    height: 20px;
+    border : 0;
+  }
+</style>
+  <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script> 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.12/angular.js"></script>
+  <script src="scroll.js"></script>
+</head>
+<body ng-controller="scrollController">
+  <h1>Custom scroll</h1>
+  <div  id="scrollDiv" when-scrolled="loadData()">
+    <ul>
+      <li ng-repeat="value in data">{{value.id}}
+        <ul>
+          <li id="custom" ng-repeat="detail in value.details"><span >{{detail.time}}</span><span>{{detail.activities}}</span></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</body>
+</html>
