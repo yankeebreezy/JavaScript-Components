@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html ng-app="flightapp">
+<head>
+  <meta charset="utf-8" />
+  <title>Your Trip</title>
+  <link href="style.css" rel="stylesheet">
+  <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script> 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.12/angular.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.12/angular-animate.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.12/angular-sanitize.js"></script>
+  <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
+  <script src="script.js"></script>
+</head>
+<style type="text/ng-template" id="dropDown.html">
+  <a>
+     <span ng-bind-html="match.label | uibTypeaheadHighlight:query"></span>
+  </a>
+</style>
+<body ng-controller="flightctrl">
+	<div>
+		<nav class="navbar navbar-light" style="background-color: #124551;">
+			<a class="navbar-brand" href="#"><b>Y</b>our<b>T</b>rip</a>
+		</nav>
+	</div>
+		<div class="container-fluid">
+	  		<section>	
+	  			<div class="btn-group" data-toggle="buttons">
+	  				<label class="space">Book Domestic and International flights</label>
+		    		<!-- <label class="btn btn-primary btn-round-sm btn-sm active buttonSpace">
+		        		<input type="radio" checked autocomplete="off"> ONE WAY
+		    		</label>
+
+		    		<label class="btn btn-primary btn-round-sm btn-sm buttonSpace">
+		        		<input type="radio" autocomplete="off"> ROUND TRIP
+		    		</label>
+
+		    		<label class="btn btn-primary btn-round-sm btn-sm buttonSpace">
+		        		<input type="radio" autocomplete="off"> MULTICITY
+		    		</label> -->
+				</div>
+			</section>
+		</div>
+		<div class="container">
+			<div style="width:375px;margin-left:27px">
+				<section>
+	  				<div class="btn-group" data-toggle="buttons">
+			    		<label class="btn btn-primary btn-round-sm btn-sm active buttonSpace" data-ng-click="chooseFlightType('oneway')">
+			        		<input type="radio" ng-model="flight" value="oneway"> ONE WAY
+
+			    		</label>
+
+			    		<label class="btn btn-primary btn-round-sm btn-sm buttonSpace" data-ng-click="chooseFlightType('roundtrip')">
+			        		<input type="radio" ng-model="flight" value="roudtrip"> ROUND TRIP
+			    		</label>
+
+			    		<label class="btn btn-primary btn-round-sm btn-sm buttonSpace" data-ng-click="chooseFlightType('multicity')">
+			        		<input type="radio" ng-model="flight" value="multicity"> MULTICITY
+			    		</label>
+					</div>
+				</section>
+			</div>
+			<div style="width:375px;">
+				<div class="inputDiv">
+					<input type="text" ng-model="from" uib-typeahead="state for state in states | filter:$viewValue" typeahead-template-url="dropDown.html" class="form-control" typeahead-show-hint="true" typeahead-min-length="0">
+					<label class="inputlabel">From</label>
+				</div>
+				<div class="inputDiv">
+					<input type="text" ng-model="to" uib-typeahead="state for state in states | filter:$viewValue" typeahead-template-url="dropDown.html" class="form-control" typeahead-show-hint="true" typeahead-min-length="0">
+					<label class="inputlabel">To</label>
+				</div>
+			</div>
+			<div style="width:375px;" ng-controller="dateController">
+				<div class="inputDiv">
+					<div>
+	        			<p class="input-group">
+	          			<input type="text" class="form-control" uib-datepicker-popup ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+	          			<span class="input-group-btn">
+	            		<button type="button" class="btn btn-default" ng-click="openDatePickerDepart()"><i class="glyphicon glyphicon-calendar"></i></button>
+	          			</span>
+	        			</p>
+	      			</div>
+	      			<label class="datelabel">Depart</label>
+				</div>
+				<div class="inputDiv">
+					<div>
+	        			<p class="input-group">
+	          			<input type="text" class="form-control" uib-datepicker-popup ng-model="dt" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" ng-disabled="model.isDisabled"/>
+	          			<span class="input-group-btn">
+	            		<button type="button" class="btn btn-default" ng-click="openDatePickerReturn()"><i class="glyphicon glyphicon-calendar"></i></button>
+	          			</span>
+	        			</p>
+	      			</div>
+	      			<label class="datelabel">Return</label>
+				</div>
+			</div>
+			<div style="width:375px;" ng-controller="numberController">
+				<div class="inputDiv">
+					<div>
+					    <number-dir numbermodal="numberModal" inc="numberIncrement(1)" dec="numberDecrement(1)">
+					    </number-dir>
+		    		</div>
+		    		<label class="inputlabel">Adult (+12 yrs)</label>
+				</div>
+				<div class="inputDiv">
+					<div ng-controller="numberController">
+					    <number-dir numbermodal="numberModal1" inc="numberIncrement(2)" dec="numberDecrement(2)"></number-dir>
+		    		</div>
+		    		<label class="inputlabel">Children (0-12 yrs)</label>
+				</div>
+  			</div>
+  			<div style="width:375px;">
+				<div class="inputDiv">
+					<span style="position: absolute;top: 360px;">Class</span>
+						<select>
+						  <option value="economy" selected>Economy</option>
+						  <option value="premium">Premium</option>
+						  <option value="business">Business</option>
+						</select>
+				</div>
+				<div class="inputDiv">
+					<searchbutton></searchbutton>
+				</div>
+  			</div>
+
+		</div>
+		<br>
+		<div class="container" ng-show="flightDetailFlag">
+			{{priceRange}}
+			<div class="slidecontainer">
+				<input type="range" min="1" max="100000" ng-model="priceRange" class="slider" id="priceRange" ng-change="$filter('pirceRangeFilter')(priceRange)"/>
+			</div>
+			<table class="table">
+				<tr>
+					<th>Airline</th>
+					<th>Departure</th>
+					<th>Arrival</th>
+					<th>Duration</th>
+					<th>Price</th>
+					<th></th>
+				</tr>
+				<tr ng-repeat="flight in flightdata | pirceRangeFilter : priceRange">
+					<td>{{flight.airline}}</td>
+					<td>{{flight.departure}}</td>
+					<td>{{flight.arrival}}</td>
+					<td>{{flight.duration}}</td>
+					<td>{{flight.price}}</td>
+					<td><input type="button" class="btn btn-danger" value="Book" ng-click="bookFlight()"/></td>
+				</tr>
+			</table>
+		</div>
+</body>
+</html>
