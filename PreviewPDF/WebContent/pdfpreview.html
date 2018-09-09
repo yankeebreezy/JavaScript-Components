@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+	function pdfPreview(){
+		var URL = window.URL || window.webkitURL;
+		var pdfFile = document.getElementById("pdfFile").files[0];
+		pdfFile_Url = URL.createObjectURL(pdfFile);
+		document.getElementById("pdfViewer").src = pdfFile_Url;
+	}
+</script>
+</head>
+<body>
+	<input id="pdfFile" type="file" onchange="pdfPreview()"/>
+	<div style="clear:both">
+		<iframe id="pdfViewer" frameborder="0" scrolling="no" width="400" height="400">
+		</iframe>
+	</div>
+</body>
+</html>

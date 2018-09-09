@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<style>
+#div1, #div2 {
+	float: left;
+	width: 350px;
+	height: 350px;
+	margin: 10px;
+	padding: 10px;
+	border: 1px solid #aaaaaa;
+}
+
+table {
+	border: none;
+}
+</style>
+<script>
+	var idCount = 1;
+	function allowDrop(ev) {
+		ev.preventDefault();
+	}
+
+	function drag(ev) {
+		ev.dataTransfer.setData("text", ev.target.id);
+	}
+
+	function drop(ev) {
+		ev.preventDefault();
+		var data = ev.dataTransfer.getData("text");
+		console.log(data);
+		/* ev.target.appendChild(document.getElementById(data)); */
+		var copyElement = document.getElementById(data).cloneNode(true);
+		copyElement.id = data + idCount;
+		if (copyElement.type == 'button') {
+			var buttonName = prompt("Please enter button name", "Submit");
+			if (buttonName) {
+				copyElement.value = buttonName;
+			}
+		}
+		if (data == 'label') {
+			var labelName = prompt("Please enter label name", "");
+			if (labelName) {
+				copyElement.innerHTML = labelName;
+			}
+		}
+		if (data == 'select') {
+			var select = copyElement.querySelectorAll("select")[0];
+			var selectOptions = prompt("Please enter select options comma separated", "");
+			if (selectOptions) {
+				var selectOptionsArr = [];
+				selectOptionsArr = selectOptions.split(",");
+				for (var i = 0; i < selectOptionsArr.length; i++) {
+					var option = document.createElement('option');
+					option.value = selectOptionsArr[i];
+					option.text = selectOptionsArr[i];
+					select.add(option);
+				}
+			}
+		}
+		if (copyElement.type == 'radio') {
+			var radioName = prompt("Please enter radio name", "");
+			if(radioName) {
+				copyElement.value = radioName;
+			}
+		}
+
+		copyElement.style = "display: table-cell;vertical-align: middle";
+		idCount += 1;
+		ev.target.appendChild(copyElement);
+	}
+</script>
+</head>
+<body>
+	<div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
+		<table>
+			<tr>
+				<td><label id="label" draggable="true"
+					ondragstart="drag(event)">Label</label></td>
+			</tr>
+			<tr>
+				<td><input id="input" type="text" draggable="true"
+					ondragstart="drag(event)" /></td>
+			</tr>
+			<tr>
+				<td><input id="radio" type="radio" draggable="true"
+					ondragstart="drag(event)" /></td>
+			</tr>
+			<tr>
+				<td><input id="button" type="button" value="Button"
+					draggable="true" ondragstart="drag(event)" /></td>
+			</tr>
+			<tr>
+				<td>
+					<div id="select" draggable="true" ondragstart="drag(event)">
+						<select></select>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td><textarea rows="3" cols="10" id="textarea" draggable="true"
+						ondragstart="drag(event)"></textarea></td>
+			</tr>
+		</table>
+	</div>
+	<div id="div2" ondrop="drop(event)" ondragover="allowDrop(event)">
+	</div>
+</body>
+</html>
